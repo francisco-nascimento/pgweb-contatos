@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>MCS - My Contacts System</title>
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<form></form>
+	    <h6><input type="text" id="firstName" placeholder="First Name" th:field="*{firstName}" /></h6>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Name</th>
+					<th>E-mail</th>
+					<th>Phone</th>
+					<th>Edit</th>
+					<th>Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cont : ${lista}">
+					<td th:text="${cont.firstName}"></td>
+					<td th:text="${cont.name}"></td>
+					<td th:text="${cont.email}"></td> 
+					<td th:text="${cont.phone}"></td>
+					<td><a class="btn btn-warning" th:href="@{/exibirEdicao/{codigo}(codigo=${cont.id})}">Edit</a></td>
+					<td><a class="btn btn-warning" th:href="@{/remover/{codigo}(codigo=${cont.id})}">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h5>Add/Edit a contact:</h5>		
+		<form class="form-narrow form-horizontal" method="post"
+			th:action="@{/salvarContato}" th:object="${contato}">
+			<input type="hidden" id="id" th:field="*{id}"/>
+			<table class="table table-striped" >		
+				<tr>
+					<td><input type="text" id="firstName" placeholder="First Name"
+						th:field="*{firstName}" /></td>
+					<td><input type="text" id="name" placeholder="Name"
+						th:field="*{name}" /></td>
+					<td><input type="text" id="email" placeholder="E-mail"
+						th:field="*{email}" /></td>
+					<td><input type="text" id="phone" placeholder="Phone"
+						th:field="*{phone}" /></td>
+					<td><button type="submit" class="btn">Save</button></td>
+					<td><button type="reset" class="btn">Clear</button></td>
+				</tr>
+			</table>
+		</form>
+		<h6><a th:href="@{/}">Home</a></h6>
+	</div>
+</body>
+</html>
